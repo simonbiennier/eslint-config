@@ -61,7 +61,7 @@ export async function stylistic(
         "antfu/consistent-chaining": "error",
         "antfu/consistent-list-newline": "error",
         "antfu/curly": "error",
-        // 'antfu/top-level-function': 'error',
+        "antfu/top-level-function": "error",
         // "curly": ["error", "all"],
         "object-curly-newline": "off",
 
