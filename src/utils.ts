@@ -1,15 +1,18 @@
-import type { Awaitable, TypedFlatConfigItem } from './types'
+import type { Awaitable, TypedFlatConfigItem } from "./types"
 
-import process from 'node:process'
-import { fileURLToPath } from 'node:url'
-import { isPackageExists } from 'local-pkg'
+import process from "node:process"
+import { fileURLToPath } from "node:url"
+import { isPackageExists } from "local-pkg"
 
-const scopeUrl = fileURLToPath(new URL('.', import.meta.url))
-const isCwdInScope = isPackageExists('@antfu/eslint-config')
+export const CONFIG_PREFIX = "simonbiennier" as const
+export const CONFIG_NAME = `@${CONFIG_PREFIX}/eslint-config` as const
+
+const scopeUrl = fileURLToPath(new URL(".", import.meta.url))
+const isCwdInScope = isPackageExists(CONFIG_NAME)
 
 export const parserPlain = {
   meta: {
-    name: 'parser-plain',
+    name: "parser-plain",
   },
   parseForESLint: (code: string) => ({
     ast: {
@@ -18,7 +21,7 @@ export const parserPlain = {
       loc: { end: code.length, start: 0 },
       range: [0, code.length],
       tokens: [],
-      type: 'Program',
+      type: "Program",
     },
     scopeManager: null,
     services: { isPlain: true },
@@ -42,7 +45,7 @@ export async function combine(...configs: Awaitable<TypedFlatConfigItem | TypedF
  *
  * @example
  * ```ts
- * import { renameRules } from '@antfu/eslint-config'
+ * import { renameRules } from '@simonbiennier/eslint-config'
  *
  * export default [{
  *   rules: renameRules(
@@ -62,8 +65,9 @@ export function renameRules(
     Object.entries(rules)
       .map(([key, value]) => {
         for (const [from, to] of Object.entries(map)) {
-          if (key.startsWith(`${from}/`))
+          if (key.startsWith(`${from}/`)) {
             return [to + key.slice(from.length), value]
+          }
         }
         return [key, value]
       }),
@@ -75,7 +79,7 @@ export function renameRules(
  *
  * @example
  * ```ts
- * import { renamePluginInConfigs } from '@antfu/eslint-config'
+ * import { renamePluginInConfigs } from '@simonbiennier/eslint-config'
  * import someConfigs from './some-configs'
  *
  * export default renamePluginInConfigs(someConfigs, {
@@ -87,14 +91,16 @@ export function renameRules(
 export function renamePluginInConfigs(configs: TypedFlatConfigItem[], map: Record<string, string>): TypedFlatConfigItem[] {
   return configs.map((i) => {
     const clone = { ...i }
-    if (clone.rules)
+    if (clone.rules) {
       clone.rules = renameRules(clone.rules, map)
+    }
     if (clone.plugins) {
       clone.plugins = Object.fromEntries(
         Object.entries(clone.plugins)
           .map(([key, value]) => {
-            if (key in map)
+            if (key in map) {
               return [map[key], value]
+            }
             return [key, value]
           }),
       )
@@ -117,26 +123,31 @@ export function isPackageInScope(name: string): boolean {
 }
 
 export async function ensurePackages(packages: (string | undefined)[]): Promise<void> {
-  if (process.env.CI || process.stdout.isTTY === false || isCwdInScope === false)
+  if (process.env.CI || process.stdout.isTTY === false || isCwdInScope === false) {
     return
+  }
 
   const nonExistingPackages = packages.filter(i => i && !isPackageInScope(i)) as string[]
-  if (nonExistingPackages.length === 0)
+  if (nonExistingPackages.length === 0) {
     return
+  }
 
-  const p = await import('@clack/prompts')
+  const p = await import("@clack/prompts")
   const result = await p.confirm({
-    message: `${nonExistingPackages.length === 1 ? 'Package is' : 'Packages are'} required for this config: ${nonExistingPackages.join(', ')}. Do you want to install them?`,
+    message: `${nonExistingPackages.length === 1 ? "Package is" : "Packages are"} required for this config: ${nonExistingPackages.join(", ")}. Do you want to install them?`,
   })
-  if (result)
-    await import('@antfu/install-pkg').then(i => i.installPackage(nonExistingPackages, { dev: true }))
+  if (result) {
+    await import("@antfu/install-pkg").then(i => i.installPackage(nonExistingPackages, { dev: true }))
+  }
 }
 
 export function isInEditorEnv(): boolean {
-  if (process.env.CI)
+  if (process.env.CI) {
     return false
-  if (isInGitHooksOrLintStaged())
+  }
+  if (isInGitHooksOrLintStaged()) {
     return false
+  }
   return !!(false
     || process.env.VSCODE_PID
     || process.env.VSCODE_CWD
@@ -150,6 +161,6 @@ export function isInGitHooksOrLintStaged(): boolean {
   return !!(false
     || process.env.GIT_PARAMS
     || process.env.VSCODE_GIT_COMMAND
-    || process.env.npm_lifecycle_script?.startsWith('lint-staged')
+    || process.env.npm_lifecycle_script?.startsWith("lint-staged")
   )
 }

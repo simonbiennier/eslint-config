@@ -1,4 +1,4 @@
-import type { OptionsConfig } from './types'
+import type { OptionsConfig } from "./types"
 
 // @keep-sorted
 export const CONFIG_PRESET_FULL_ON: OptionsConfig = {
@@ -29,7 +29,7 @@ export const CONFIG_PRESET_FULL_ON: OptionsConfig = {
   toml: true,
   typescript: {
     erasableOnly: true,
-    tsconfigPath: 'tsconfig.json',
+    tsconfigPath: "tsconfig.json",
   },
   unicorn: true,
   unocss: true,

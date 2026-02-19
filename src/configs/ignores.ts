@@ -1,6 +1,7 @@
-import type { TypedFlatConfigItem } from '../types'
+import type { TypedFlatConfigItem } from "../types"
 
-import { GLOB_EXCLUDE, GLOB_TS, GLOB_TSX } from '../globs'
+import { GLOB_EXCLUDE, GLOB_TS, GLOB_TSX } from "../globs"
+import { CONFIG_PREFIX } from "../utils"
 
 export async function ignores(
   userIgnores: string[] | ((originals: string[]) => string[]) = [],
@@ -10,13 +11,13 @@ export async function ignores(
     ...GLOB_EXCLUDE,
   ]
 
-  if (ignoreTypeScript)
+  if (ignoreTypeScript) {
     ignores.push(GLOB_TS, GLOB_TSX)
-
-  if (typeof userIgnores === 'function') {
-    ignores = userIgnores(ignores)
   }
-  else {
+
+  if (typeof userIgnores === "function") {
+    ignores = userIgnores(ignores)
+  } else {
     ignores = [
       ...ignores,
       ...userIgnores,
@@ -26,7 +27,7 @@ export async function ignores(
   return [
     {
       ignores,
-      name: 'antfu/ignores',
+      name: `${CONFIG_PREFIX}/ignores`,
     },
   ]
 }

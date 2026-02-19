@@ -1,7 +1,8 @@
-import type { OptionsConfig, TypedFlatConfigItem } from '../src/types'
-import { it } from 'vitest'
-import { CONFIG_PRESET_FULL_OFF, CONFIG_PRESET_FULL_ON } from '../src/config-presets'
-import { antfu } from '../src/factory'
+import type { OptionsConfig, TypedFlatConfigItem } from "../src/types"
+import { CONFIG_PREFIX } from "src/utils"
+import { it } from "vitest"
+import { CONFIG_PRESET_FULL_OFF, CONFIG_PRESET_FULL_ON } from "../src/config-presets"
+import { config } from "../src/factory"
 
 interface Suite {
   name: string
@@ -10,46 +11,40 @@ interface Suite {
 
 const suites: Suite[] = [
   {
-    name: 'default',
+    name: "default",
     configs: {},
   },
   {
-    name: 'full-off',
+    name: "full-off",
     configs: CONFIG_PRESET_FULL_OFF,
   },
   {
-    name: 'full-on',
+    name: "full-on",
     configs: CONFIG_PRESET_FULL_ON,
   },
   {
-    name: 'less-opinionated',
-    configs: {
-      lessOpinionated: true,
-    },
-  },
-  {
-    name: 'javascript-vue',
+    name: "javascript-vue",
     configs: {
       typescript: false,
       vue: true,
     },
   },
   {
-    name: 'pnpm-without-yaml',
+    name: "pnpm-without-yaml",
     configs: {
       yaml: false,
       pnpm: true,
     },
   },
   {
-    name: 'pnpm-without-jsonc',
+    name: "pnpm-without-jsonc",
     configs: {
       jsonc: false,
       pnpm: true,
     },
   },
   {
-    name: 'in-editor',
+    name: "in-editor",
     configs: {
       isInEditor: true,
     },
@@ -57,15 +52,15 @@ const suites: Suite[] = [
 ]
 
 const ignoreConfigs: string[] = [
-  'antfu/gitignore',
-  'antfu/ignores',
-  'antfu/javascript/setup',
+  `${CONFIG_PREFIX}/gitignore`,
+  `${CONFIG_PREFIX}/ignores`,
+  `${CONFIG_PREFIX}/javascript/setup`,
 ]
 
 function serializeConfigs(configs: TypedFlatConfigItem[]) {
   return configs.map((c) => {
     if (c.name && ignoreConfigs.includes(c.name)) {
-      return '<ignored>'
+      return "<ignored>"
     }
     const clone = { ...c } as any
     if (c.plugins) {
@@ -73,8 +68,8 @@ function serializeConfigs(configs: TypedFlatConfigItem[]) {
     }
     if (c.languageOptions) {
       if (c.languageOptions.parser) {
-        if (typeof c.languageOptions.parser !== 'string') {
-          clone.languageOptions.parser = (c.languageOptions.parser as any).meta?.name ?? (c.languageOptions.parser as any).name ?? 'unknown'
+        if (typeof c.languageOptions.parser !== "string") {
+          clone.languageOptions.parser = (c.languageOptions.parser as any).meta?.name ?? (c.languageOptions.parser as any).name ?? "unknown"
         }
       }
       delete clone.languageOptions.globals
@@ -85,15 +80,16 @@ function serializeConfigs(configs: TypedFlatConfigItem[]) {
       }
     }
     if (c.processor) {
-      if (typeof c.processor !== 'string') {
-        clone.processor = (c.processor as any).meta?.name ?? 'unknown'
+      if (typeof c.processor !== "string") {
+        clone.processor = (c.processor as any).meta?.name ?? "unknown"
       }
     }
     if (c.rules) {
       clone.rules = Object.entries(c.rules)
         .map(([rule, value]) => {
-          if (value === 'off' || value === 0)
+          if (value === "off" || value === 0) {
             return `- ${rule}`
+          }
           return rule
         })
     }
@@ -103,8 +99,8 @@ function serializeConfigs(configs: TypedFlatConfigItem[]) {
 
 suites.forEach(({ name, configs }) => {
   it.concurrent(`factory ${name}`, async ({ expect }) => {
-    const config = await antfu(configs)
-    await expect(serializeConfigs(config))
+    const conf = await config(configs)
+    await expect(serializeConfigs(conf))
       .toMatchFileSnapshot(`./__snapshots__/factory/${name}.snap.js`)
   })
 })

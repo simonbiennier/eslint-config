@@ -3,7 +3,7 @@
   "<ignored>",
   "<ignored>",
   {
-    "name": "antfu/javascript/rules",
+    "name": "simonbiennier/javascript/rules",
     "plugins": [
       "antfu",
       "unused-imports",
@@ -120,7 +120,7 @@
     ],
   },
   {
-    "name": "antfu/eslint-comments/rules",
+    "name": "simonbiennier/eslint-comments/rules",
     "plugins": [
       "eslint-comments",
     ],
@@ -132,7 +132,7 @@
     ],
   },
   {
-    "name": "antfu/command/rules",
+    "name": "simonbiennier/command/rules",
     "plugins": [
       "command",
     ],
@@ -141,7 +141,7 @@
     ],
   },
   {
-    "name": "antfu/perfectionist/setup",
+    "name": "simonbiennier/perfectionist/setup",
     "plugins": [
       "perfectionist",
     ],
@@ -156,7 +156,7 @@
     "files": [
       "**/*.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/node/rules",
+    "name": "simonbiennier/node/rules",
     "plugins": [
       "node",
     ],
@@ -175,7 +175,7 @@
     "files": [
       "**/*.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/jsdoc/rules",
+    "name": "simonbiennier/jsdoc/rules",
     "plugins": [
       "jsdoc",
     ],
@@ -200,7 +200,7 @@
     ],
   },
   {
-    "name": "antfu/imports/rules",
+    "name": "simonbiennier/imports/rules",
     "plugins": [
       "antfu",
       "import",
@@ -218,7 +218,7 @@
     ],
   },
   {
-    "name": "antfu/unicorn/rules",
+    "name": "simonbiennier/unicorn/rules",
     "plugins": [
       "unicorn",
     ],
@@ -252,12 +252,12 @@
         },
       },
     },
-    "name": "antfu/jsx/setup",
+    "name": "simonbiennier/jsx/setup",
     "plugins": [],
     "rules": [],
   },
   {
-    "name": "antfu/typescript/setup",
+    "name": "simonbiennier/typescript/setup",
     "plugins": [
       "antfu",
       "ts",
@@ -278,7 +278,7 @@
         "sourceType": "module",
       },
     },
-    "name": "antfu/typescript/parser",
+    "name": "simonbiennier/typescript/parser",
   },
   {
     "files": [
@@ -286,7 +286,7 @@
       "**/*.?([cm])tsx",
       "**/*.vue",
     ],
-    "name": "antfu/typescript/rules",
+    "name": "simonbiennier/typescript/rules",
     "rules": [
       "- constructor-super",
       "- getter-return",
@@ -354,7 +354,7 @@
     ],
   },
   {
-    "name": "antfu/stylistic/rules",
+    "name": "simonbiennier/stylistic/rules",
     "plugins": [
       "antfu",
       "style",
@@ -433,7 +433,7 @@
     ],
   },
   {
-    "name": "antfu/regexp/rules",
+    "name": "simonbiennier/regexp/rules",
     "plugins": [
       "regexp",
     ],
@@ -508,7 +508,7 @@
     ],
   },
   {
-    "name": "antfu/test/setup",
+    "name": "simonbiennier/test/setup",
     "plugins": [
       "test",
     ],
@@ -521,7 +521,7 @@
       "**/*.bench.?([cm])[jt]s?(x)",
       "**/*.benchmark.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/test/rules",
+    "name": "simonbiennier/test/rules",
     "rules": [
       "test/consistent-test-it",
       "test/no-identical-title",
@@ -537,7 +537,7 @@
   },
   {
     "languageOptions": {},
-    "name": "antfu/vue/setup",
+    "name": "simonbiennier/vue/setup",
     "plugins": [
       "vue",
     ],
@@ -558,7 +558,7 @@
         "sourceType": "module",
       },
     },
-    "name": "antfu/vue/rules",
+    "name": "simonbiennier/vue/rules",
     "processor": "merged-processor:eslint-plugin-vue+eslint-processor-vue-blocks",
     "rules": [
       "vue/comment-directive",
@@ -726,7 +726,7 @@
     ],
   },
   {
-    "name": "antfu/jsonc/setup",
+    "name": "simonbiennier/jsonc/setup",
     "plugins": [
       "jsonc",
     ],
@@ -740,7 +740,7 @@
     "languageOptions": {
       "parser": "jsonc-eslint-parser",
     },
-    "name": "antfu/jsonc/rules",
+    "name": "simonbiennier/jsonc/rules",
     "rules": [
       "jsonc/no-bigint-literals",
       "jsonc/no-binary-expression",
@@ -784,7 +784,7 @@
     "files": [
       "**/package.json",
     ],
-    "name": "antfu/sort/package-json",
+    "name": "simonbiennier/sort/package-json",
     "rules": [
       "jsonc/sort-array-values",
       "jsonc/sort-keys",
@@ -795,7 +795,7 @@
       "**/[jt]sconfig.json",
       "**/[jt]sconfig.*.json",
     ],
-    "name": "antfu/sort/tsconfig-json",
+    "name": "simonbiennier/sort/tsconfig-json",
     "rules": [
       "jsonc/sort-keys",
     ],
@@ -808,7 +808,7 @@
     "languageOptions": {
       "parser": "jsonc-eslint-parser",
     },
-    "name": "antfu/pnpm/package-json",
+    "name": "simonbiennier/pnpm/package-json",
     "plugins": [
       "pnpm",
     ],
@@ -819,7 +819,7 @@
     ],
   },
   {
-    "name": "antfu/toml/setup",
+    "name": "simonbiennier/toml/setup",
     "plugins": [
       "toml",
     ],
@@ -831,7 +831,7 @@
     "languageOptions": {
       "parser": "toml-eslint-parser",
     },
-    "name": "antfu/toml/rules",
+    "name": "simonbiennier/toml/rules",
     "rules": [
       "- style/spaced-comment",
       "toml/comma-style",
@@ -856,7 +856,7 @@
     ],
   },
   {
-    "name": "antfu/markdown/setup",
+    "name": "simonbiennier/markdown/setup",
     "plugins": [
       "markdown",
     ],
@@ -868,7 +868,7 @@
     "ignores": [
       "**/*.md/*.md",
     ],
-    "name": "antfu/markdown/processor",
+    "name": "simonbiennier/markdown/processor",
     "processor": "merged-processor:@eslint/markdown/markdown+pass-through",
   },
   {
@@ -878,7 +878,7 @@
     "languageOptions": {
       "parser": "parser-plain",
     },
-    "name": "antfu/markdown/parser",
+    "name": "simonbiennier/markdown/parser",
   },
   {
     "files": [
@@ -892,7 +892,7 @@
         },
       },
     },
-    "name": "antfu/markdown/disables",
+    "name": "simonbiennier/markdown/disables",
     "rules": [
       "- antfu/no-top-level-await",
       "- no-alert",
@@ -925,7 +925,7 @@
     "files": [
       "**/scripts/**/*.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/disables/scripts",
+    "name": "simonbiennier/disables/scripts",
     "rules": [
       "- antfu/no-top-level-await",
       "- no-console",
@@ -937,7 +937,7 @@
       "**/cli/**/*.?([cm])[jt]s?(x)",
       "**/cli.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/disables/cli",
+    "name": "simonbiennier/disables/cli",
     "rules": [
       "- antfu/no-top-level-await",
       "- no-console",
@@ -948,7 +948,7 @@
       "**/bin/**/*",
       "**/bin.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/disables/bin",
+    "name": "simonbiennier/disables/bin",
     "rules": [
       "- antfu/no-import-dist",
       "- antfu/no-import-node-modules-by-path",
@@ -958,7 +958,7 @@
     "files": [
       "**/*.d.?([cm])ts",
     ],
-    "name": "antfu/disables/dts",
+    "name": "simonbiennier/disables/dts",
     "rules": [
       "- eslint-comments/no-unlimited-disable",
       "- no-restricted-syntax",
@@ -970,7 +970,7 @@
       "**/*.js",
       "**/*.cjs",
     ],
-    "name": "antfu/disables/cjs",
+    "name": "simonbiennier/disables/cjs",
     "rules": [
       "- ts/no-require-imports",
     ],
@@ -980,7 +980,7 @@
       "**/*.config.?([cm])[jt]s?(x)",
       "**/*.config.*.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/disables/config-files",
+    "name": "simonbiennier/disables/config-files",
     "rules": [
       "- antfu/no-top-level-await",
       "- no-console",

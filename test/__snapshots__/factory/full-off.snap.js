@@ -2,7 +2,7 @@
   "<ignored>",
   "<ignored>",
   {
-    "name": "antfu/javascript/rules",
+    "name": `simonbiennier/javascript/rules`,
     "plugins": [
       "antfu",
       "unused-imports",
@@ -119,7 +119,7 @@
     ],
   },
   {
-    "name": "antfu/eslint-comments/rules",
+    "name": `simonbiennier/eslint-comments/rules`,
     "plugins": [
       "eslint-comments",
     ],
@@ -131,7 +131,7 @@
     ],
   },
   {
-    "name": "antfu/command/rules",
+    "name": `simonbiennier/command/rules`,
     "plugins": [
       "command",
     ],
@@ -140,7 +140,7 @@
     ],
   },
   {
-    "name": "antfu/perfectionist/setup",
+    "name": `simonbiennier/perfectionist/setup`,
     "plugins": [
       "perfectionist",
     ],
@@ -155,7 +155,7 @@
     "files": [
       "**/scripts/**/*.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/disables/scripts",
+    "name": `simonbiennier/disables/scripts`,
     "rules": [
       "- antfu/no-top-level-await",
       "- no-console",
@@ -167,7 +167,7 @@
       "**/cli/**/*.?([cm])[jt]s?(x)",
       "**/cli.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/disables/cli",
+    "name": `simonbiennier/disables/cli`,
     "rules": [
       "- antfu/no-top-level-await",
       "- no-console",
@@ -178,7 +178,7 @@
       "**/bin/**/*",
       "**/bin.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/disables/bin",
+    "name": `simonbiennier/disables/bin`,
     "rules": [
       "- antfu/no-import-dist",
       "- antfu/no-import-node-modules-by-path",
@@ -188,7 +188,7 @@
     "files": [
       "**/*.d.?([cm])ts",
     ],
-    "name": "antfu/disables/dts",
+    "name": `simonbiennier/disables/dts`,
     "rules": [
       "- eslint-comments/no-unlimited-disable",
       "- no-restricted-syntax",
@@ -200,7 +200,7 @@
       "**/*.js",
       "**/*.cjs",
     ],
-    "name": "antfu/disables/cjs",
+    "name": `simonbiennier/disables/cjs`,
     "rules": [
       "- ts/no-require-imports",
     ],
@@ -210,7 +210,7 @@
       "**/*.config.?([cm])[jt]s?(x)",
       "**/*.config.*.?([cm])[jt]s?(x)",
     ],
-    "name": "antfu/disables/config-files",
+    "name": `simonbiennier/disables/config-files`,
     "rules": [
       "- antfu/no-top-level-await",
       "- no-console",

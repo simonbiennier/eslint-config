@@ -1,18 +1,18 @@
 /* eslint-disable perfectionist/sort-objects */
-import type { ExtraLibrariesOption, FrameworkOption, PromptResult } from './types'
+import type { ExtraLibrariesOption, FrameworkOption, PromptResult } from "./types"
 
-import fs from 'node:fs'
-import path from 'node:path'
-import process from 'node:process'
-import * as p from '@clack/prompts'
-import c from 'ansis'
+import fs from "node:fs"
+import path from "node:path"
+import process from "node:process"
+import * as p from "@clack/prompts"
+import c from "ansis"
 
-import { extra, extraOptions, frameworkOptions, frameworks } from './constants'
-import { updateEslintFiles } from './stages/update-eslint-files'
-import { updatePackageJson } from './stages/update-package-json'
-import { updateVscodeSettings } from './stages/update-vscode-settings'
+import { extra, extraOptions, frameworkOptions, frameworks } from "./constants"
+import { updateEslintFiles } from "./stages/update-eslint-files"
+import { updatePackageJson } from "./stages/update-package-json"
+import { updateVscodeSettings } from "./stages/update-vscode-settings"
 
-import { isGitClean } from './utils'
+import { getPackage, isGitClean, isGitRepo } from "./utils"
 
 export interface CliRunOptions {
   /**
@@ -20,7 +20,7 @@ export interface CliRunOptions {
    */
   yes?: boolean
   /**
-   * Use the framework template for optimal customization: vue / react / svelte / astro
+   * Use the framework template for optimal customisation: vue / react / svelte / astro
    */
   frameworks?: string[]
   /**
@@ -34,12 +34,15 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
   const argTemplate = <FrameworkOption[]>options.frameworks?.map(m => m?.trim()).filter(Boolean)
   const argExtra = <ExtraLibrariesOption[]>options.extra?.map(m => m?.trim()).filter(Boolean)
 
-  if (fs.existsSync(path.join(process.cwd(), 'eslint.config.js'))) {
-    p.log.warn(c.yellow`eslint.config.js already exists, migration wizard exited.`)
+  const pkg = await getPackage()
+  const configFileName = pkg.type === "module" ? "eslint.config.js" : "eslint.config.mjs"
+
+  if (fs.existsSync(path.join(process.cwd(), configFileName))) {
+    p.log.warn(c.yellow`${configFileName} already exists, migration wizard exited.`)
     return process.exit(1)
   }
 
-  // Set default value for promptResult if `argSkipPrompt` is enabled
+  // set default value for promptResult if `argSkipPrompt` is enabled
   let result: PromptResult = {
     extra: argExtra ?? [],
     frameworks: argTemplate ?? [],
@@ -50,23 +53,25 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
   if (!argSkipPrompt) {
     result = await p.group({
       uncommittedConfirmed: () => {
-        if (argSkipPrompt || isGitClean())
+        if (argSkipPrompt || !isGitRepo || isGitClean()) {
           return Promise.resolve(true)
+        }
 
         return p.confirm({
           initialValue: false,
-          message: 'There are uncommitted changes in the current repository, are you sure to continue?',
+          message: "There are uncommitted changes in the current repository, are you sure to continue?",
         })
       },
       frameworks: ({ results }) => {
-        const isArgTemplateValid = typeof argTemplate === 'string' && !!frameworks.includes(<FrameworkOption>argTemplate)
+        const isArgTemplateValid = typeof argTemplate === "string" && !!frameworks.includes(<FrameworkOption>argTemplate)
 
-        if (!results.uncommittedConfirmed || isArgTemplateValid)
+        if (!results.uncommittedConfirmed || isArgTemplateValid) {
           return
+        }
 
         const message = !isArgTemplateValid && argTemplate
           ? `"${argTemplate}" isn't a valid template. Please choose from below: `
-          : 'Select a framework:'
+          : "Select a framework:"
 
         return p.multiselect<FrameworkOption>({
           message: c.reset(message),
@@ -77,12 +82,13 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
       extra: ({ results }) => {
         const isArgExtraValid = argExtra?.length && !argExtra.filter(element => !extra.includes(<ExtraLibrariesOption>element)).length
 
-        if (!results.uncommittedConfirmed || isArgExtraValid)
+        if (!results.uncommittedConfirmed || isArgExtraValid) {
           return
+        }
 
         const message = !isArgExtraValid && argExtra
           ? `"${argExtra}" isn't a valid extra util. Please choose from below: `
-          : 'Select a extra utils:'
+          : "Select a extra utils:"
 
         return p.multiselect<ExtraLibrariesOption>({
           message: c.reset(message),
@@ -92,23 +98,25 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
       },
 
       updateVscodeSettings: ({ results }) => {
-        if (!results.uncommittedConfirmed)
+        if (!results.uncommittedConfirmed) {
           return
+        }
 
         return p.confirm({
           initialValue: true,
-          message: 'Update .vscode/settings.json for better VS Code experience?',
+          message: "Update .vscode/settings.json for better VS Code experience?",
         })
       },
     }, {
       onCancel: () => {
-        p.cancel('Operation cancelled.')
+        p.cancel("Operation cancelled.")
         process.exit(0)
       },
     }) as PromptResult
 
-    if (!result.uncommittedConfirmed)
+    if (!result.uncommittedConfirmed) {
       return process.exit(1)
+    }
   }
 
   await updatePackageJson(result)
@@ -116,5 +124,5 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
   await updateVscodeSettings(result)
 
   p.log.success(c.green`Setup completed`)
-  p.outro(`Now you can update the dependencies by run ${c.blue('pnpm install')} and run ${c.blue('eslint --fix')}\n`)
+  p.outro(`Now you can update the dependencies by running ${c.blue("pnpm install")} and ${c.blue("eslint --fix")}\n`)
 }

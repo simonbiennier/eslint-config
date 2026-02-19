@@ -1,57 +1,58 @@
-import type { TypedFlatConfigItem } from '../types'
+import type { TypedFlatConfigItem } from "../types"
 
-import { GLOB_SRC, GLOB_SRC_EXT } from '../globs'
+import { GLOB_SRC, GLOB_SRC_EXT } from "../globs"
+import { CONFIG_PREFIX } from "../utils"
 
 export async function disables(): Promise<TypedFlatConfigItem[]> {
   return [
     {
       files: [`**/scripts/${GLOB_SRC}`],
-      name: 'antfu/disables/scripts',
+      name: `${CONFIG_PREFIX}/disables/scripts`,
       rules: {
-        'antfu/no-top-level-await': 'off',
-        'no-console': 'off',
-        'ts/explicit-function-return-type': 'off',
+        "antfu/no-top-level-await": "off",
+        "no-console": "off",
+        "ts/explicit-function-return-type": "off",
       },
     },
     {
       files: [`**/cli/${GLOB_SRC}`, `**/cli.${GLOB_SRC_EXT}`],
-      name: 'antfu/disables/cli',
+      name: `${CONFIG_PREFIX}/disables/cli`,
       rules: {
-        'antfu/no-top-level-await': 'off',
-        'no-console': 'off',
+        "antfu/no-top-level-await": "off",
+        "no-console": "off",
       },
     },
     {
-      files: ['**/bin/**/*', `**/bin.${GLOB_SRC_EXT}`],
-      name: 'antfu/disables/bin',
+      files: ["**/bin/**/*", `**/bin.${GLOB_SRC_EXT}`],
+      name: `${CONFIG_PREFIX}/disables/bin`,
       rules: {
-        'antfu/no-import-dist': 'off',
-        'antfu/no-import-node-modules-by-path': 'off',
+        "antfu/no-import-dist": "off",
+        "antfu/no-import-node-modules-by-path": "off",
       },
     },
     {
-      files: ['**/*.d.?([cm])ts'],
-      name: 'antfu/disables/dts',
+      files: ["**/*.d.?([cm])ts"],
+      name: `${CONFIG_PREFIX}/disables/dts`,
       rules: {
-        'eslint-comments/no-unlimited-disable': 'off',
-        'no-restricted-syntax': 'off',
-        'unused-imports/no-unused-vars': 'off',
+        "eslint-comments/no-unlimited-disable": "off",
+        "no-restricted-syntax": "off",
+        "unused-imports/no-unused-vars": "off",
       },
     },
     {
-      files: ['**/*.js', '**/*.cjs'],
-      name: 'antfu/disables/cjs',
+      files: ["**/*.js", "**/*.cjs"],
+      name: `${CONFIG_PREFIX}/disables/cjs`,
       rules: {
-        'ts/no-require-imports': 'off',
+        "ts/no-require-imports": "off",
       },
     },
     {
       files: [`**/*.config.${GLOB_SRC_EXT}`, `**/*.config.*.${GLOB_SRC_EXT}`],
-      name: 'antfu/disables/config-files',
+      name: `${CONFIG_PREFIX}/disables/config-files`,
       rules: {
-        'antfu/no-top-level-await': 'off',
-        'no-console': 'off',
-        'ts/explicit-function-return-type': 'off',
+        "antfu/no-top-level-await": "off",
+        "no-console": "off",
+        "ts/explicit-function-return-type": "off",
       },
     },
   ]

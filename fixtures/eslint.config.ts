@@ -1,6 +1,6 @@
-import { antfu } from './src'
+import { config } from "../src"
 
-export default antfu(
+export default config(
   {
     vue: {
       a11y: true,
@@ -12,19 +12,19 @@ export default antfu(
     typescript: true,
     formatters: true,
     pnpm: true,
-    type: 'lib',
+    type: "lib",
   },
   {
     ignores: [
-      'fixtures',
-      '_fixtures',
-      '**/constants-generated.ts',
+      "fixtures",
+      "_fixtures",
+      "**/constants-generated.ts",
     ],
   },
   {
-    files: ['src/**/*.ts'],
+    files: ["src/**/*.ts"],
     rules: {
-      'perfectionist/sort-objects': 'error',
+      "perfectionist/sort-objects": "error",
     },
   },
 )

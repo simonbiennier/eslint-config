@@ -1,28 +1,35 @@
-import type { ExtraLibrariesOption, PromptResult } from '../types'
-import fsp from 'node:fs/promises'
-import path from 'node:path'
+import type { ExtraLibrariesOption, PromptResult } from "../types"
+import fsp from "node:fs/promises"
 
-import process from 'node:process'
-import * as p from '@clack/prompts'
+import path from "node:path"
+import process from "node:process"
 
-import c from 'ansis'
+import * as p from "@clack/prompts"
 
-import { version } from '../../../package.json'
-import { dependenciesMap } from '../constants'
-import { versionsMap } from '../constants-generated'
+import c from "ansis"
+import { version } from "../../../package.json"
+import { CONFIG_NAME } from "../../utils"
+import { dependenciesMap } from "../constants"
+import { versionsMap } from "../constants-generated"
+import { getPackage } from "../utils"
 
 export async function updatePackageJson(result: PromptResult): Promise<void> {
   const cwd = process.cwd()
 
-  const pathPackageJSON = path.join(cwd, 'package.json')
+  const pathPackageJSON = path.join(cwd, "package.json")
 
-  p.log.step(c.cyan`Bumping @antfu/eslint-config to v${version}`)
+  p.log.step(c.cyan`Bumping ${CONFIG_NAME} to v${version}`)
 
-  const pkgContent = await fsp.readFile(pathPackageJSON, 'utf-8')
-  const pkg: Record<string, any> = JSON.parse(pkgContent)
+  const pkg = await getPackage()
+
+  pkg.scripts ??= {}
+  // eslint-disable-next-line dot-notation
+  pkg.scripts["lint"] = "eslint --cache ."
+  pkg.scripts["lint:fix"] = "eslint --cache --fix ."
+  p.note(c.dim`lint, lint:fix`, "Added scripts")
 
   pkg.devDependencies ??= {}
-  pkg.devDependencies['@antfu/eslint-config'] = `^${version}`
+  pkg.devDependencies[CONFIG_NAME] = `^${version}`
   pkg.devDependencies.eslint ??= versionsMap.eslint
 
   const addedPackages: string[] = []
@@ -30,18 +37,18 @@ export async function updatePackageJson(result: PromptResult): Promise<void> {
   if (result.extra.length) {
     result.extra.forEach((item: ExtraLibrariesOption) => {
       switch (item) {
-        case 'formatter':
+        case "formatter":
           (<const>[
             ...dependenciesMap.formatter,
-            ...(result.frameworks.includes('astro') ? dependenciesMap.formatterAstro : []),
+            ...(result.frameworks.includes("astro") ? dependenciesMap.formatterAstro : []),
           ]).forEach((f) => {
-            if (!f)
-              return
+            if (!f) return
+
             pkg.devDependencies[f] = versionsMap[f as keyof typeof versionsMap]
             addedPackages.push(f)
           })
           break
-        case 'unocss':
+        case "unocss":
           dependenciesMap.unocss.forEach((f) => {
             pkg.devDependencies[f] = versionsMap[f as keyof typeof versionsMap]
             addedPackages.push(f)
@@ -61,8 +68,9 @@ export async function updatePackageJson(result: PromptResult): Promise<void> {
     }
   }
 
-  if (addedPackages.length)
-    p.note(c.dim(addedPackages.join(', ')), 'Added packages')
+  if (addedPackages.length) {
+    p.note(c.dim(addedPackages.join(", ")), "Added packages")
+  }
 
   await fsp.writeFile(pathPackageJSON, JSON.stringify(pkg, null, 2))
   p.log.success(c.green`Changes wrote to package.json`)

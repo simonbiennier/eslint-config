@@ -1,19 +1,17 @@
 {
-  "name": "@antfu/eslint-config",
+  "name": "@simonbiennier/eslint-config",
   "type": "module",
-  "version": "7.4.3",
+  "version": "2.0.0",
   "packageManager": "pnpm@10.29.2",
-  "description": "Anthony's ESLint config",
-  "author": "Anthony Fu <anthonyfu117@hotmail.com> (https://github.com/antfu/)",
-  "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/eslint-config",
+  "description": "Simon's ESLint config",
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/simonbiennier/eslint-config",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/eslint-config.git"
+    "url": "git+https://github.com/simonbiennier/eslint-config.git"
   },
   "bugs": {
-    "url": "https://github.com/antfu/eslint-config/issues"
+    "url": "https://github.com/simonbiennier/eslint-config/issues"
   },
   "keywords": [
     "eslint-config"
@@ -32,14 +30,15 @@
     "dist"
   ],
   "scripts": {
-    "build": "nr gen && tsdown --clean --dts",
+    "build": "pnpm run gen && tsdown --clean --dts",
     "stub": "tsdown",
-    "dev": "npx @eslint/config-inspector --config eslint.config.ts",
-    "build:inspector": "pnpm build && npx @eslint/config-inspector build",
+    "dev": "pnpx @eslint/config-inspector --config eslint.config.ts",
+    "build:inspector": "pnpm build && pnpx @eslint/config-inspector build",
     "watch": "tsdown --watch",
     "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "gen": "tsx scripts/typegen.ts && tsx scripts/versiongen.ts",
-    "prepack": "nr build",
+    "prepack": "pnpm run build",
     "release": "bumpp",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
@@ -169,12 +168,11 @@
     "@angular-eslint/eslint-plugin-template": "catalog:peer",
     "@angular-eslint/template-parser": "catalog:peer",
     "@angular/core": "catalog:dev",
-    "@antfu/eslint-config": "workspace:*",
-    "@antfu/ni": "catalog:dev",
     "@eslint-react/eslint-plugin": "catalog:peer",
     "@eslint/config-inspector": "catalog:dev",
     "@next/eslint-plugin-next": "catalog:peer",
     "@prettier/plugin-xml": "catalog:peer",
+    "@simonbiennier/eslint-config": "workspace:*",
     "@types/eslint-plugin-jsx-a11y": "catalog:dev",
     "@types/node": "catalog:dev",
     "@unocss/eslint-plugin": "catalog:peer",

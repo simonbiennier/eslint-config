@@ -1,27 +1,29 @@
-import type { OptionsOverrides, OptionsRegExp, TypedFlatConfigItem } from '../types'
+import type { OptionsOverrides, OptionsRegExp, TypedFlatConfigItem } from "../types"
 
-import { configs } from 'eslint-plugin-regexp'
+import { configs } from "eslint-plugin-regexp"
+import { CONFIG_PREFIX } from "../utils"
 
 export async function regexp(
   options: OptionsRegExp & OptionsOverrides = {},
 ): Promise<TypedFlatConfigItem[]> {
-  const config = configs['flat/recommended'] as TypedFlatConfigItem
+  const config = configs["flat/recommended"] as TypedFlatConfigItem
 
   const rules = {
     ...config.rules,
   }
 
-  if (options.level === 'warn') {
+  if (options.level === "warn") {
     for (const key in rules) {
-      if (rules[key] === 'error')
-        rules[key] = 'warn'
+      if (rules[key] === "error") {
+        rules[key] = "warn"
+      }
     }
   }
 
   return [
     {
       ...config,
-      name: 'antfu/regexp/rules',
+      name: `${CONFIG_PREFIX}/regexp/rules`,
       rules: {
         ...rules,
         ...options.overrides,

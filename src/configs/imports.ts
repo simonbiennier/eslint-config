@@ -1,5 +1,6 @@
-import type { OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types'
-import { pluginAntfu, pluginImportLite } from '../plugins'
+import type { OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from "../types"
+import { pluginAntfu, pluginImportLite } from "../plugins"
+import { CONFIG_PREFIX } from "../utils"
 
 export async function imports(options: OptionsOverrides & OptionsStylistic = {}): Promise<TypedFlatConfigItem[]> {
   const {
@@ -9,25 +10,25 @@ export async function imports(options: OptionsOverrides & OptionsStylistic = {})
 
   return [
     {
-      name: 'antfu/imports/rules',
+      name: `${CONFIG_PREFIX}/imports/rules`,
       plugins: {
         antfu: pluginAntfu,
         import: pluginImportLite,
       },
       rules: {
-        'antfu/import-dedupe': 'error',
-        'antfu/no-import-dist': 'error',
-        'antfu/no-import-node-modules-by-path': 'error',
+        "antfu/import-dedupe": "error",
+        "antfu/no-import-dist": "error",
+        "antfu/no-import-node-modules-by-path": "error",
 
-        'import/consistent-type-specifier-style': ['error', 'top-level'],
-        'import/first': 'error',
-        'import/no-duplicates': 'error',
-        'import/no-mutable-exports': 'error',
-        'import/no-named-default': 'error',
+        "import/consistent-type-specifier-style": ["error", "top-level"],
+        "import/first": "error",
+        "import/no-duplicates": "error",
+        "import/no-mutable-exports": "error",
+        "import/no-named-default": "error",
 
         ...stylistic
           ? {
-              'import/newline-after-import': ['error', { count: 1 }],
+              "import/newline-after-import": ["error", { count: 1 }],
             }
           : {},
 

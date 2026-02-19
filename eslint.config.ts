@@ -1,6 +1,6 @@
-import { antfu } from './src'
+import { config } from "./src"
 
-export default antfu(
+export default config(
   {
     vue: {
       a11y: true,
@@ -15,27 +15,27 @@ export default antfu(
     },
     markdown: {
       overrides: {
-        'no-dupe-keys': 'off',
+        "no-dupe-keys": "off",
       },
     },
     formatters: true,
     pnpm: true,
-    type: 'lib',
+    type: "lib",
     jsx: {
       a11y: true,
     },
   },
   {
     ignores: [
-      'fixtures',
-      '_fixtures',
-      '**/constants-generated.ts',
+      "fixtures",
+      "_fixtures",
+      "**/constants-generated.ts",
     ],
   },
   {
-    files: ['src/**/*.ts'],
+    files: ["src/**/*.ts"],
     rules: {
-      'perfectionist/sort-objects': 'error',
+      "perfectionist/sort-objects": "error",
     },
   },
 )

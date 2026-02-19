@@ -1,28 +1,32 @@
-import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from '../types'
-import { pluginAntfu } from '../plugins'
-import { interopDefault } from '../utils'
+import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from "../types"
+import { pluginAntfu } from "../plugins"
+import { CONFIG_PREFIX, interopDefault } from "../utils"
 
 export const StylisticConfigDefaults: StylisticConfig = {
-  experimental: false,
+  arrowParens: true,
+  blockSpacing: true,
+  braceStyle: "1tbs",
+  commaDangle: "always-multiline",
   indent: 2,
   jsx: true,
-  quotes: 'single',
+  quoteProps: "consistent-as-needed",
+  quotes: "double",
   semi: false,
 }
 
-export interface StylisticOptions extends StylisticConfig, OptionsOverrides {
-  lessOpinionated?: boolean
-}
+export interface StylisticOptions extends StylisticConfig, OptionsOverrides {}
 
 export async function stylistic(
   options: StylisticOptions = {},
 ): Promise<TypedFlatConfigItem[]> {
   const {
-    experimental,
+    blockSpacing,
+    braceStyle,
+    commaDangle,
     indent,
     jsx,
-    lessOpinionated = false,
     overrides = {},
+    quoteProps,
     quotes,
     semi,
   } = {
@@ -30,20 +34,23 @@ export async function stylistic(
     ...options,
   }
 
-  const pluginStylistic = await interopDefault(import('@stylistic/eslint-plugin'))
+  const pluginStylistic = await interopDefault(import("@stylistic/eslint-plugin"))
 
   const config = pluginStylistic.configs.customize({
-    experimental,
+    blockSpacing,
+    braceStyle,
+    commaDangle,
     indent,
     jsx,
-    pluginName: 'style',
+    pluginName: "style",
+    quoteProps,
     quotes,
     semi,
   }) as TypedFlatConfigItem
 
   return [
     {
-      name: 'antfu/stylistic/rules',
+      name: `${CONFIG_PREFIX}/stylistic/rules`,
       plugins: {
         antfu: pluginAntfu,
         style: pluginStylistic,
@@ -51,27 +58,17 @@ export async function stylistic(
       rules: {
         ...config.rules,
 
-        ...experimental
-          ? {}
-          : {
-              'antfu/consistent-list-newline': 'error',
-            },
+        "antfu/consistent-chaining": "error",
+        "antfu/consistent-list-newline": "error",
+        "antfu/curly": "error",
+        // 'antfu/top-level-function': 'error',
+        // "curly": ["error", "all"],
+        "object-curly-newline": "off",
 
-        'antfu/consistent-chaining': 'error',
-
-        ...(lessOpinionated
-          ? {
-              curly: ['error', 'all'],
-            }
-          : {
-              'antfu/curly': 'error',
-              'antfu/if-newline': 'error',
-              'antfu/top-level-function': 'error',
-            }
-        ),
-
-        'style/generator-star-spacing': ['error', { after: true, before: false }],
-        'style/yield-star-spacing': ['error', { after: true, before: false }],
+        "style/brace-style": ["error", "1tbs", { allowSingleLine: false }],
+        // "style/space-before-blocks": ["error", "always"],
+        "style/generator-star-spacing": ["error", { after: true, before: false }],
+        "style/yield-star-spacing": ["error", { after: true, before: false }],
 
         ...overrides,
       },

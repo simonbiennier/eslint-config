@@ -1,11 +1,11 @@
-import type { StylisticCustomizeOptions } from '@stylistic/eslint-plugin'
-import type { ParserOptions } from '@typescript-eslint/parser'
-import type { Linter } from 'eslint'
-import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore'
-import type { ConfigWithExtends } from 'eslint-flat-config-utils'
-import type { Options as VueBlocksOptions } from 'eslint-processor-vue-blocks'
-import type { ConfigNames, RuleOptions } from './typegen'
-import type { VendoredPrettierOptions } from './vender/prettier-types'
+import type { StylisticCustomizeOptions } from "@stylistic/eslint-plugin"
+import type { ParserOptions } from "@typescript-eslint/parser"
+import type { Linter } from "eslint"
+import type { FlatGitignoreOptions } from "eslint-config-flat-gitignore"
+import type { ConfigWithExtends } from "eslint-flat-config-utils"
+import type { Options as VueBlocksOptions } from "eslint-processor-vue-blocks"
+import type { ConfigNames, RuleOptions } from "./typegen"
+import type { VendoredPrettierOptions } from "./vendor/prettier-types"
 
 export type Awaitable<T> = T | Promise<T>
 
@@ -18,7 +18,7 @@ export type { ConfigNames, RuleOptions }
  * for `rules` and relaxes type limitations for `plugins` and `rules`, because
  * many plugins still lack proper type definitions.
  */
-export type TypedFlatConfigItem = Omit<ConfigWithExtends, 'plugins' | 'rules'> & {
+export type TypedFlatConfigItem = Omit<ConfigWithExtends, "plugins" | "rules"> & {
   /**
    * An object containing a name-value mapping of plugin names to plugin objects.
    * When `files` is specified, these plugins are only available to the matching files.
@@ -93,28 +93,28 @@ export interface OptionsFormatters {
    *
    * Currently only support Prettier.
    */
-  css?: 'prettier' | boolean
+  css?: "prettier" | boolean
 
   /**
    * Enable formatting support for HTML.
    *
    * Currently only support Prettier.
    */
-  html?: 'prettier' | boolean
+  html?: "prettier" | boolean
 
   /**
    * Enable formatting support for XML.
    *
    * Currently only support Prettier.
    */
-  xml?: 'prettier' | boolean
+  xml?: "prettier" | boolean
 
   /**
    * Enable formatting support for SVG.
    *
    * Currently only support Prettier.
    */
-  svg?: 'prettier' | boolean
+  svg?: "prettier" | boolean
 
   /**
    * Enable formatting support for Markdown.
@@ -123,12 +123,12 @@ export interface OptionsFormatters {
    *
    * When set to `true`, it will use Prettier.
    */
-  markdown?: 'prettier' | 'dprint' | boolean
+  markdown?: "prettier" | "dprint" | boolean
 
   /**
    * Enable formatting support for GraphQL.
    */
-  graphql?: 'prettier' | boolean
+  graphql?: "prettier" | boolean
 
   /**
    * Custom options for Prettier.
@@ -158,7 +158,7 @@ export interface OptionsFormatters {
    *
    * Currently only support Prettier.
    */
-  astro?: 'prettier' | boolean
+  astro?: "prettier" | boolean
 }
 
 export interface OptionsComponentExts {
@@ -209,7 +209,7 @@ export interface OptionsTypeScriptWithTypes {
   /**
    * Override type aware rules.
    */
-  overridesTypeAware?: TypedFlatConfigItem['rules']
+  overridesTypeAware?: TypedFlatConfigItem["rules"]
 }
 
 export interface OptionsHasTypeScript {
@@ -220,12 +220,10 @@ export interface OptionsStylistic {
   stylistic?: boolean | StylisticConfig
 }
 
-export interface StylisticConfig
-  extends Pick<StylisticCustomizeOptions, 'indent' | 'quotes' | 'jsx' | 'semi' | 'experimental'> {
-}
+export interface StylisticConfig extends StylisticCustomizeOptions {}
 
 export interface OptionsOverrides {
-  overrides?: TypedFlatConfigItem['rules']
+  overrides?: TypedFlatConfigItem["rules"]
 }
 
 export interface OptionsProjectType {
@@ -234,7 +232,7 @@ export interface OptionsProjectType {
    *
    * @default 'app'
    */
-  type?: 'app' | 'lib'
+  type?: "app" | "lib"
 }
 
 export interface OptionsTypeScriptErasableOnly {
@@ -251,7 +249,7 @@ export interface OptionsRegExp {
   /**
    * Override rulelevels
    */
-  level?: 'error' | 'warn'
+  level?: "error" | "warn"
 }
 
 export interface OptionsIsInEditor {
@@ -325,17 +323,6 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * @default []
    */
   ignores?: string[] | ((originals: string[]) => string[])
-
-  /**
-   * Disable some opinionated rules to Anthony's preference.
-   *
-   * Including:
-   * - `antfu/top-level-function`
-   * - `antfu/if-newline`
-   *
-   * @default false
-   */
-  lessOpinionated?: boolean
 
   /**
    * Core rules. Can't be disabled.
@@ -568,16 +555,16 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * @deprecated use `overrides` option in each integration key instead
    */
   overrides?: {
-    stylistic?: TypedFlatConfigItem['rules']
-    javascript?: TypedFlatConfigItem['rules']
-    typescript?: TypedFlatConfigItem['rules']
-    test?: TypedFlatConfigItem['rules']
-    vue?: TypedFlatConfigItem['rules']
-    jsonc?: TypedFlatConfigItem['rules']
-    markdown?: TypedFlatConfigItem['rules']
-    yaml?: TypedFlatConfigItem['rules']
-    toml?: TypedFlatConfigItem['rules']
-    react?: TypedFlatConfigItem['rules']
-    svelte?: TypedFlatConfigItem['rules']
+    stylistic?: TypedFlatConfigItem["rules"]
+    javascript?: TypedFlatConfigItem["rules"]
+    typescript?: TypedFlatConfigItem["rules"]
+    test?: TypedFlatConfigItem["rules"]
+    vue?: TypedFlatConfigItem["rules"]
+    jsonc?: TypedFlatConfigItem["rules"]
+    markdown?: TypedFlatConfigItem["rules"]
+    yaml?: TypedFlatConfigItem["rules"]
+    toml?: TypedFlatConfigItem["rules"]
+    react?: TypedFlatConfigItem["rules"]
+    svelte?: TypedFlatConfigItem["rules"]
   }
 }
