@@ -20,14 +20,17 @@ export interface CliRunOptions {
    */
   yes?: boolean
   /**
-   * Use the framework template for optimal customisation: vue / react / svelte / astro
+   * Use the framework template for optimal customisation
    */
   frameworks?: string[]
   /**
-   * Use the extra utils: formatter / perfectionist / unocss
+   * Use the extra utils
    */
   extra?: string[]
 }
+
+const defaultFrameworks: FrameworkOption[] = ["react"]
+const defaultExtra: ExtraLibrariesOption[] = ["formatter", "a11y"]
 
 export async function run(options: CliRunOptions = {}): Promise<void> {
   const argSkipPrompt = !!process.env.SKIP_PROMPT || options.yes
@@ -44,8 +47,8 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
 
   // set default value for promptResult if `argSkipPrompt` is enabled
   let result: PromptResult = {
-    extra: argExtra ?? [],
-    frameworks: argTemplate ?? [],
+    extra: argExtra ?? defaultExtra,
+    frameworks: argTemplate ?? defaultFrameworks,
     uncommittedConfirmed: false,
     updateVscodeSettings: true,
   }
@@ -77,6 +80,7 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
           message: c.reset(message),
           options: frameworkOptions,
           required: false,
+          initialValues: defaultFrameworks,
         })
       },
       extra: ({ results }) => {
@@ -94,10 +98,11 @@ export async function run(options: CliRunOptions = {}): Promise<void> {
           message: c.reset(message),
           options: extraOptions,
           required: false,
+          initialValues: defaultExtra,
         })
       },
 
-      updateVscodeSettings: ({ results }) => {
+      updateVscodeSettings: async ({ results }) => {
         if (!results.uncommittedConfirmed) {
           return
         }

@@ -48,8 +48,8 @@ export async function updatePackageJson(result: PromptResult): Promise<void> {
             addedPackages.push(f)
           })
           break
-        case "unocss":
-          dependenciesMap.unocss.forEach((f) => {
+        case "a11y":
+          dependenciesMap.a11y.forEach((f) => {
             pkg.devDependencies[f] = versionsMap[f as keyof typeof versionsMap]
             addedPackages.push(f)
           })

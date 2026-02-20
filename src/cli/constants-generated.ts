@@ -4,6 +4,7 @@ export const versionsMap = {
   "@unocss/eslint-plugin": "^66.6.0",
   "astro-eslint-parser": "^1.2.2",
   "eslint": "^9.39.2",
+  "eslint-plugin-jsx-a11y": "^6.7.1",
   "eslint-plugin-astro": "^1.5.0",
   "eslint-plugin-format": "^1.4.0",
   "eslint-plugin-react-hooks": "^7.0.1",

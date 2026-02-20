@@ -2,26 +2,26 @@ import { config } from "./src"
 
 export default config(
   {
-    vue: {
-      a11y: true,
-    },
-    react: true,
-    solid: true,
-    svelte: true,
     astro: true,
-    nextjs: false,
-    typescript: {
-      erasableOnly: true,
+    formatters: true,
+    jsx: {
+      a11y: true,
     },
     markdown: {
       overrides: {
         "no-dupe-keys": "off",
       },
     },
-    formatters: true,
+    nextjs: false,
     pnpm: true,
+    react: true,
+    solid: true,
+    svelte: true,
     type: "lib",
-    jsx: {
+    typescript: {
+      erasableOnly: true,
+    },
+    vue: {
       a11y: true,
     },
   },
@@ -31,11 +31,5 @@ export default config(
       "_fixtures",
       "**/constants-generated.ts",
     ],
-  },
-  {
-    files: ["src/**/*.ts"],
-    rules: {
-      "perfectionist/sort-objects": "error",
-    },
   },
 )

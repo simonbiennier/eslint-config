@@ -45,8 +45,11 @@ export async function updateEslintFiles(result: PromptResult): Promise<void> {
     configLines.push(`formatters: true,`)
   }
 
-  if (result.extra.includes("unocss")) {
-    configLines.push(`unocss: true,`)
+  if (result.extra.includes("a11y")) {
+    configLines.push(`jsx: { a11y: true },`)
+    if (result.frameworks.includes("vue")) {
+      configLines.push(`vue: { a11y: true },`)
+    }
   }
 
   for (const framework of result.frameworks) {

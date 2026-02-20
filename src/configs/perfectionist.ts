@@ -21,7 +21,6 @@ export async function perfectionist(): Promise<TypedFlatConfigItem[]> {
           groups: [
             "type-import",
             ["type-parent", "type-sibling", "type-index", "type-internal"],
-
             "value-builtin",
             "value-external",
             "value-internal",
@@ -37,6 +36,7 @@ export async function perfectionist(): Promise<TypedFlatConfigItem[]> {
         }],
         "perfectionist/sort-named-exports": ["error", { order: "asc", type: "natural" }],
         "perfectionist/sort-named-imports": ["error", { order: "asc", type: "natural" }],
+        "perfectionist/sort-objects": "error",
       },
     },
   ]

@@ -6,7 +6,7 @@ export interface PromItem<T> {
 
 export type FrameworkOption = "vue" | "react" | "svelte" | "astro" | "solid" | "slidev"
 
-export type ExtraLibrariesOption = "formatter" | "unocss"
+export type ExtraLibrariesOption = "formatter" | "a11y"
 
 export interface PromptResult {
   uncommittedConfirmed: boolean

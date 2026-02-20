@@ -161,8 +161,6 @@ export function config(
     }),
     comments(),
     command(),
-
-    // optional plugins (installed but not enabled by default)
     perfectionist(),
   )
 

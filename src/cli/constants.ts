@@ -39,9 +39,15 @@ export const vscodeSettingsString = `
     "scss",
     "pcss",
     "postcss"
-  ]
+  ],
 
-
+  // js, ts settings
+  "javascript.format.enable": false,
+  "typescript.format.enable": false,
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.validate.enable": true,
+  "typescript.validate.enable": true
 `
 
 export const frameworkOptions: PromItem<FrameworkOption>[] = [
@@ -80,14 +86,17 @@ export const extraOptions: PromItem<ExtraLibrariesOption>[] = [
     value: "formatter",
   },
   {
-    label: c.cyan("UnoCSS"),
-    value: "unocss",
+    label: c.green("Accessibility"),
+    value: "a11y",
   },
 ]
 
 export const extra: ExtraLibrariesOption[] = extraOptions.map(({ value }) => (value))
 
 export const dependenciesMap = {
+  a11y: [
+    "eslint-plugin-jsx-a11y",
+  ],
   astro: [
     "eslint-plugin-astro",
     "astro-eslint-parser",
@@ -115,9 +124,6 @@ export const dependenciesMap = {
   svelte: [
     "eslint-plugin-svelte",
     "svelte-eslint-parser",
-  ],
-  unocss: [
-    "@unocss/eslint-plugin",
   ],
   vue: [],
 } as const
