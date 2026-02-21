@@ -54,7 +54,6 @@ export async function nextjs(
         ...getRules("recommended"),
         ...getRules("core-web-vitals"),
 
-        // overrides
         ...overrides,
       },
       settings: {

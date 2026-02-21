@@ -28,6 +28,7 @@ import {
   sortTsconfig,
   stylistic,
   svelte,
+  tanstackQuery,
   test,
   toml,
   typescript,
@@ -65,6 +66,7 @@ export const defaultPluginRenaming = {
 
   "@next/next": "next",
   "@stylistic": "style",
+  "@tanstack/query": "tanstack-query",
   "@typescript-eslint": "ts",
   "import-lite": "import",
   "n": "node",
@@ -104,6 +106,7 @@ export function config(
     regexp: enableRegexp = true,
     solid: enableSolid = false,
     svelte: enableSvelte = false,
+    tanstackQuery: enableTanstackQuery = false,
     typescript: enableTypeScript = isPackageExists("typescript"),
     unicorn: enableUnicorn = true,
     unocss: enableUnoCSS = false,
@@ -256,6 +259,15 @@ export function config(
         ...resolveSubOptions(options, "react"),
         overrides: getOverrides(options, "react"),
         tsconfigPath,
+      }),
+    )
+  }
+
+  if (enableTanstackQuery) {
+    configs.push(
+      tanstackQuery({
+        ...resolveSubOptions(options, "tanstackQuery"),
+        overrides: getOverrides(options, "tanstackQuery"),
       }),
     )
   }

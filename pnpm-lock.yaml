@@ -77,6 +77,9 @@ catalogs:
     '@prettier/plugin-xml':
       specifier: ^3.4.2
       version: 3.4.2
+    '@tanstack/eslint-plugin-query':
+      specifier: ^5.91.2
+      version: 5.91.4
     '@unocss/eslint-plugin':
       specifier: ^66.6.0
       version: 66.6.0
@@ -385,6 +388,9 @@ importers:
       '@simonbiennier/eslint-config':
         specifier: workspace:*
         version: 'link:'
+      '@tanstack/eslint-plugin-query':
+        specifier: catalog:peer
+        version: 5.91.4(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@types/eslint-plugin-jsx-a11y':
         specifier: catalog:dev
         version: 6.10.1(jiti@2.6.1)
@@ -1473,6 +1479,15 @@ packages:
     resolution: {integrity: sha512-IwQk4yfwLdibDlrXVE04jTZYlLnwsTT2PIOQQGNLWfjavGifnk1JD1LcZjZaBTRcxZu2FfPfNLOE04DSu9lqtQ==}
     peerDependencies:
       acorn: ^8.9.0
+
+  '@tanstack/eslint-plugin-query@5.91.4':
+    resolution: {integrity: sha512-8a+GAeR7oxJ5laNyYBQ6miPK09Hi18o5Oie/jx8zioXODv/AUFLZQecKabPdpQSLmuDXEBPKFh+W5DKbWlahjQ==}
+    peerDependencies:
+      eslint: ^9.39.2
+      typescript: ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -4786,6 +4801,15 @@ snapshots:
   '@sveltejs/acorn-typescript@1.0.5(acorn@8.15.0)':
     dependencies:
       acorn: 8.15.0
+
+  '@tanstack/eslint-plugin-query@5.91.4(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)':
+    dependencies:
+      '@typescript-eslint/utils': 8.55.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      eslint: 9.39.2(jiti@2.6.1)
+    optionalDependencies:
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - supports-color
 
   '@tybys/wasm-util@0.10.1':
     dependencies:

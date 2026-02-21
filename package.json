@@ -51,6 +51,7 @@
     "@eslint-react/eslint-plugin": "^2.11.0",
     "@next/eslint-plugin-next": ">=15.0.0",
     "@prettier/plugin-xml": "^3.4.1",
+    "@tanstack/eslint-plugin-query": "^5.91.2",
     "@unocss/eslint-plugin": ">=0.50.0",
     "astro-eslint-parser": "^1.0.2",
     "eslint": "^9.10.0 || ^10.0.0",
@@ -83,6 +84,9 @@
       "optional": true
     },
     "@prettier/plugin-xml": {
+      "optional": true
+    },
+    "@tanstack/eslint-plugin-query": {
       "optional": true
     },
     "@unocss/eslint-plugin": {
@@ -173,6 +177,7 @@
     "@next/eslint-plugin-next": "catalog:peer",
     "@prettier/plugin-xml": "catalog:peer",
     "@simonbiennier/eslint-config": "workspace:*",
+    "@tanstack/eslint-plugin-query": "catalog:peer",
     "@types/eslint-plugin-jsx-a11y": "catalog:dev",
     "@types/node": "catalog:dev",
     "@unocss/eslint-plugin": "catalog:peer",

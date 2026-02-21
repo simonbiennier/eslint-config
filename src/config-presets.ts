@@ -25,6 +25,7 @@ export const CONFIG_PRESET_FULL_ON: OptionsConfig = {
     experimental: true,
   },
   svelte: true,
+  tanstackQuery: true,
   test: true,
   toml: true,
   typescript: {
@@ -57,6 +58,7 @@ export const CONFIG_PRESET_FULL_OFF: OptionsConfig = {
   solid: false,
   stylistic: false,
   svelte: false,
+  tanstackQuery: false,
   test: false,
   toml: false,
   typescript: false,

@@ -503,6 +503,16 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
   svelte?: boolean | OptionsOverrides
 
   /**
+   * Enable TanStack Query rules.
+   *
+   * Requires installing:
+   * - `@tanstack/eslint-plugin-query`
+   *
+   * @default false
+   */
+  tanstackQuery?: boolean | OptionsOverrides
+
+  /**
    * Enable unocss rules.
    *
    * Requires installing:
@@ -565,6 +575,7 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
     yaml?: TypedFlatConfigItem["rules"]
     toml?: TypedFlatConfigItem["rules"]
     react?: TypedFlatConfigItem["rules"]
+    tanstackQuery?: TypedFlatConfigItem["rules"]
     svelte?: TypedFlatConfigItem["rules"]
   }
 }
