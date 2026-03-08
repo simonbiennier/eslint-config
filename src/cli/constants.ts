@@ -81,7 +81,7 @@ export const frameworks: FrameworkOption[] = frameworkOptions.map(({ value }) =>
 
 export const extraOptions: PromItem<ExtraLibrariesOption>[] = [
   {
-    hint: "Use external formatters (Prettier and/or dprint) to format files that ESLint cannot handle yet (.css, .html, etc)",
+    hint: "Use external formatters (e.g., Prettier) to format files that ESLint cannot handle yet (.css, .html, etc.)",
     label: c.red("Formatter"),
     value: "formatter",
   },
@@ -102,6 +102,7 @@ export const dependenciesMap = {
     "astro-eslint-parser",
   ],
   formatter: [
+    "@prettier/plugin-xml",
     "eslint-plugin-format",
   ],
   formatterAstro: [

@@ -1,6 +1,7 @@
 export const versionsMap = {
   "@eslint-react/eslint-plugin": "^2.12.4",
   "@next/eslint-plugin-next": "^16.1.6",
+  "@prettier/plugin-xml": "^3.4.1",
   "@unocss/eslint-plugin": "^66.6.0",
   "astro-eslint-parser": "^1.2.2",
   "eslint": "^9.39.2",
