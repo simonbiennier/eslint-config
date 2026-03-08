@@ -2,6 +2,9 @@
   "name": "@simonbiennier/eslint-config",
   "type": "module",
   "version": "2.0.2",
+  "publishConfig": {
+    "access": "public"
+  },
   "packageManager": "pnpm@10.29.2",
   "description": "Simon's ESLint config",
   "license": "UNLICENSED",
@@ -39,7 +42,7 @@
     "lint:fix": "eslint --fix",
     "gen": "tsx scripts/typegen.ts && tsx scripts/versiongen.ts",
     "prepack": "pnpm run build",
-    "release": "bumpp && pnpm publish --access public",
+    "release": "bumpp && pnpm publish",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
