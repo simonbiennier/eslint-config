@@ -39,7 +39,7 @@
     "lint:fix": "eslint --fix",
     "gen": "tsx scripts/typegen.ts && tsx scripts/versiongen.ts",
     "prepack": "pnpm run build",
-    "release": "bumpp",
+    "release": "bumpp && pnpm publish --access public",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
